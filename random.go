@@ -17,6 +17,7 @@ const idLen = 20
 
 // idChars are characters allowed in captcha id.
 var idChars = []byte("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789")
+var codeChars = []byte("abcdefghijklmnopqrstuvwxyz0123456789")
 
 // rngKey is a secret key used to deterministically derive seeds for
 // PRNGs used in image and audio. Generated once during initialization.
@@ -58,6 +59,14 @@ func deriveSeed(purpose byte, id string, digits []byte) (out [16]byte) {
 // solution.
 func RandomDigits(length int) []byte {
 	return randomBytesMod(length, 10)
+}
+
+func RandomString(length int) []byte {
+	b := randomBytesMod(length, byte(len(codeChars)))
+	for i, c := range b {
+		b[i] = codeChars[c]
+	}
+	return b
 }
 
 // randomBytes returns a byte slice of the given length read from CSPRNG.

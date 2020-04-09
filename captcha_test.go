@@ -6,6 +6,7 @@ package captcha
 
 import (
 	"bytes"
+	"fmt"
 	"testing"
 )
 
@@ -49,4 +50,10 @@ func TestRandomDigits(t *testing.T) {
 	if bytes.Equal(d1, d2) {
 		t.Errorf("digits seem to be not random")
 	}
+}
+
+func TestRandomChars(t *testing.T) {
+	a := RandomString(10)
+	fmt.Println(string(a))
+
 }
